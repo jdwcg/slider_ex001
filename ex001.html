@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Position</title>
+  </head>
+  <body>
+    <div style="height: 110vh">
+      <div>
+        <h1>web</h1>
+        <p class="foo">Lorem ipsum dolor sit.</p>
+      </div>
+    </div>
+
+    <script>
+      let foo = document.querySelector(".foo");
+      function logScrollPosition() {
+        const verticalScrollPosition = foo.scrollY || foo.pageYOffset;
+
+        if (foo.pageYOffset == verticalScrollPosition) {
+          console.log("일치했다.");
+        }
+      }
+
+      // scroll 이벤트 리스너 등록
+      window.addEventListener("scroll", logScrollPosition);
+    </script>
+  </body>
+</html>

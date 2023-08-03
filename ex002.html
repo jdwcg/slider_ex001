@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrap {
+        width: 200px;
+        overflow: hidden;
+        border: 1px solid red;
+      }
+      .contain {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      .box {
+        min-width: 200px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="contain">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+      </div>
+      <button class="leftBtn">left</button>
+      <button class="rightBtn">right</button>
+    </div>
+
+    <script>
+      let box = document.querySelectorAll(".box");
+      let contain = document.querySelector(".contain");
+      let leftBtn = document.querySelector(".leftBtn");
+      let rightBtn = document.querySelector(".rightBtn");
+
+      let i = 0;
+      let step = 200;
+
+      function moveBoxes(direction) {
+        if (direction === "left") {
+          i += step;
+          if (i >= box.length * step) {
+            i = 0;
+          }
+        } else if (direction === "right") {
+          i -= step;
+          if (i < 0) {
+            i = box.length * step - step;
+          }
+        }
+
+        contain.style.transform = `translateX(-${i}px)`;
+      }
+
+      setInterval(moveBoxes, 3000, "left");
+
+      leftBtn.addEventListener("click", function () {
+        moveBoxes("left");
+      });
+      rightBtn.addEventListener("click", function () {
+        moveBoxes("right");
+      });
+    </script>
+  </body>
+</html>
