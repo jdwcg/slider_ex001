@@ -2,8 +2,14 @@
 <html>
   <head>
     <style>
+      *,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       .wrap {
-        width: 200px;
+        width: 100%;
         overflow: hidden;
         border: 1px solid red;
         position: relative; /* Add this to enable positioning of pagination dots */
@@ -13,7 +19,7 @@
         transition: transform 0.5s ease;
       }
       .box {
-        min-width: 200px;
+        min-width: 100%;
         height: 200px;
         display: flex;
         align-items: center;
@@ -48,8 +54,8 @@
         <div class="box">box-1</div>
         <div class="box">box-2</div>
         <div class="box">box-3</div>
-        <div class="box">box-3</div>
-        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
       </div>
       <button class="leftBtn">left</button>
       <button class="rightBtn">right</button>
@@ -64,8 +70,16 @@
       let rightBtn = document.querySelector(".rightBtn");
       let pagination = document.querySelector(".pagination");
 
+      // 화면 너비 감지되면 틀어진 슬라이드 픽스
+      function updateStep() {
+        let boxWidth = box[0].getBoundingClientRect().width;
+        step = boxWidth;
+        contain.style.transform = `translateX(-${i}px)`;
+      }
+
       let i = 0;
-      let step = 200;
+      let boxWidth = box[0].getBoundingClientRect().width;
+      let step = boxWidth;
 
       function moveBoxes(direction) {
         if (direction === "left") {
@@ -83,6 +97,7 @@
         contain.style.transform = `translateX(-${i}px)`;
 
         // Update the active dot based on the current page
+
         let activeIndex = i / step;
         updateActiveDot(activeIndex);
       }
@@ -121,6 +136,9 @@
       rightBtn.addEventListener("click", function () {
         moveBoxes("right");
       });
+
+      // Add event listener to window resize
+      window.addEventListener("resize", updateStep);
     </script>
   </body>
 </html>
