@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex</title>
+  </head>
+  <body>
+    <style>
+      .boxes {
+        display: flex;
+        border: 1px solid tan;
+        width: 200px;
+        overflow: hidden;
+      }
+      .box {
+        min-width: 200px;
+        height: 200px;
+        position: relative;
+        transition: transform 0.5s ease;
+      }
+    </style>
+    <div class="boxes">
+      <div class="box">item_1</div>
+      <div class="box">item_2</div>
+      <div class="box">item_3</div>
+    </div>
+
+    <script>
+      let box = document.querySelectorAll(".box");
+      let translationValue = 0;
+      const moveDistance = 200;
+
+      function moveBox() {
+        translationValue -= moveDistance;
+
+        for (i = 0; i < box.length; i++) {
+          box[i].style.transform = `translateX(${translationValue}px)`;
+        }
+        if (translationValue <= -moveDistance * box.length) {
+          translationValue = 0;
+          for (let i = 0; i < box.length; i++) {
+            box[i].style.transform = `translateX(0)`;
+          }
+        }
+      }
+
+      setInterval(moveBox, 2000);
+    </script>
+  </body>
+</html>
